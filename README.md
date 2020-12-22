@@ -120,4 +120,4 @@
 reference
 
 1. https://gyoogle.dev/blog/
-2. https://github.com/JaeYeopHan/Interview_Question_for_Beginner/tree/master/DataStructure
+2. https://github.com/JaeYeopHan/Interview_Question_for_Beginner/
