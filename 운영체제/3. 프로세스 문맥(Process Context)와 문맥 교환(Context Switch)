@@ -1,0 +1,72 @@
+# 프로세스 문맥(Process Context)와 문맥 교환(Context Switch)
+
+<br>
+
+## 프로세스 문맥(Process Context)
+
+프로세스의 문맥은 프로세스가 현재 어디까지 진행되었는지 상태를 나타내주는 정보다. 조금 더 구체적으로 말해보면, **정지된 프로세스를 정지된 시점에서 다시 시작하기 위해 필요한 모든 H/W 및 S/W 관련 내용**이라고 보면 된다. 프로세스의 문맥은 크게 아래 세 개의 내용을 포함한다.
+
+- 프로세스의 주소 공간 : code(text), data, heap, stack
+
+- CPU 수행 상태를 나타내는 하드웨어 문맥(시스템-레벨의 문맥) : PC(Program Counter), 일반적인 목적의 각종 레지스터들
+
+  > PC(Program Counter): 다음 수행할 명령어의 주소를 가지고 있는 레지스터
+
+- 프로세스 관련 커널 자료 구조 : PCB(Process Control Block), Kernel Stack
+
+  > - PCB(Process Control Block):  실제 프로세스 내용이 아니라, 커널이 프로세스를 관리하기 위해 만든 메타 데이터. 추후 더 자세히 설명
+  > - Kernel Stack: 말 그대로 커널 모드에서 사용하는 스택. 일례로 System Call이 발생했을 때 System Call Handler가 CPU 레지스터값 등을 커널 스택에 저장한다. 
+
+<br>
+
+## 프로세스 문맥은 왜 파악되어야 할까?
+
+CPU가 프로세스 A를 수행하고 있다가 중간에 Interrupt 혹은 System Call 등으로 인해 다른 프로세스로 넘어가게 될 수도 있다. 이렇게 CPU를 점유하고 있는 프로세스가 바뀌는 것을 `Context Switch`가 발생했다고 말한다. 그건 이따가 더 자세하게 말해보자.
+
+아무튼 이때, 프로세스 A가 어디까지 진행되었는지 백업을 해놓지 않고 다른 주소로 넘어가게 된다면 그 프로세스를 처음부터 다시 실행해버리는 문제가 발생할 수도 있다. 그렇기 때문에 현재 CPU의 PC가 어느 주소를 가리키고 있었고, 레지스터에는 어떤 데이터를 읽어왔었으며, PCB에는 어떤 블락들이 있는지, 어떤 프로세스가 커널을 호출했는지 커널 스택 정보를 저장해놔야 한다.
+
+<br>
+
+## PCB(Process Control Block)
+
+위에서도 언급했지만 PCB는 **실제 프로세스 내용이 아니라, 커널이 프로세스를 관리하기 위해 만든 메타 데이터**이다. 보통 PCB는 프로세스의 모든 정적/동적 정보를 보관하는 **커널 데이터 구조**라고 한다. 
+
+실제로 리눅스에서는 PCB가 `struct task_struct`과 같이 구조체로 선언되어 있으며, Linked List 형태로 관리되고 있다. 프로세스가 새로 생겨나면 PCB 구조체가 생성되어 연결 리스트에 삽입되고, 프로세스가 완료되면 해당 PCB 구조체가 제거되는 로직으로 관리되고 있다.
+
+<br>
+
+PCB는 다음과 같은 핵심정보 등을 담고 있다.
+
+1. process ID : 커널에 의해 만들어진 pid
+2. user id : 보안, 권한 확인을 위해 필요한 user id
+3. binary program file info : 파일 확장자 (eg. "hwp", 'vi', ...)
+4. scheduling priority: CPU 스케줄링을 위한 우선순위
+5. process state : running / blocked, ready, etc.
+6. open  file table : 어떤 파일을 통해 이 process에 접근하고 있는지
+   - 참고로 I/O도 모두 파일로 인식되며, 리눅스에서 0번은 키보드/1,2번은 모니터가 기본값이고 파일을 새로 열 때 3번부터 시작할거다.
+
+7. memory mng. info : text/data/heap/stack 주소 및 사이즈, 가상 메모리 관리 정보(페이지 테이블, ...) 등
+8. working directory : 프로세스가 가장 최근에 실행되었던 디렉토리
+
+등등...
+
+<br>
+
+## 문맥 교환 (Context Switch)
+
+![](https://i.imgur.com/mSgxQmJ.png)
+
+문맥 교환(context switch)는 CPU를 점유하고 있던 프로세스A가 I/O interrupt, System Call, tile slice burst 등으로 인해 blocked되고, 다른 프로세스B가 CPU를 점유하게 되는 상황을 말한다. 위 그림을 보면 조금 더 자세히 이해가 될 것 같다.
+
+문맥 교환에서 가장 중요한 것은 다음과 같다.
+
+- context switch는 무조건 커널 안에서만 발생한다. 즉, 프로세스는 무조건 커널 안에서 stop하여 blocked상태가 되고, runnable했던 process도 커널 안에서 run 상태로 바뀌는 것이다.
+- 멈췄던 프로세스가 다시 시작될 때는 반드시 멈췄던 지점에서 다시 시작되어야 한다. 그것을 가능하게 만들기 위해 프로세스 문맥이니, PCB니 그런 것들을 저장해놔야 한다고 열심히 떠든 것이다.
+- 엄청 중요한 것은 아니지만, 당연한 얘기로 프로세스에 CPU를 할당해주는 타임 슬라이스가 너무 짧으면 그만큼 context switch가 빈번히 일어나야 하는 건데 오버헤드가 일어날 수 있다는 점은 알아두자.
+
+
+
+ref
+
+https://medium.com/pocs/%EC%BB%A4%EB%84%90-kernel-c5e19f8b34c0
+
