@@ -76,16 +76,17 @@
 - Web
     1. 브라우저 동작 방법
     2. 쿠키 & 세션
-    3. Http Status Code
-    4. REST API
-    5. Web Server와 WAS
-    6. OAuth
-    7. JWT (JSON Web Token)
-    8. 인증방식
-    9. 로깅 레벨 (Logging Level)
-    10. UI UX
-    11. CSR & SSR
-    12. DNS
+    4. 브라우저 크리티컬 렌더링 패스
+    4. Http Status Code
+    5. REST API
+    6. Web Server와 WAS
+    7. OAuth
+    8. JWT (JSON Web Token)
+    9. 인증방식
+    10. 로깅 레벨 (Logging Level)
+    11. UI UX
+    12. CSR & SSR
+    13. DNS
 
 ---
 
