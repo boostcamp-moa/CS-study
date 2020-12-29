@@ -65,7 +65,7 @@
 
 ### TCP Tahoe
 
-`TCP Tahoe`는 처음에는 `Slow Start`를 사용하다가 임계점에 도달하면 `AIMD` 방식을 사용한다. 그러다가 `3 ACK Duplicated` 또는 `타임아웃`이 발생하면 혼잡이라고 판단하여 임계점은 절반으로, 윈도우 크기는 1로 줄인다.
+`TCP Tahoe`는 처음에는 `Slow Start`를 사용하다가 임계점에 도달하면 `AIMD` 방식을 사용한다. 그러다가 `3 ACK Duplicated` 또는 `타임아웃`이 발생하면 혼잡이라고 판단하여 임계점은 혼잡이 발생한 윈도우 크기의 절반으로, 윈도우 크기는 1로 줄인다.
 
 <img src="https://images.velog.io/images/mu1616/post/b68716a3-f1b5-4a49-8740-8ba880ec13d8/image.png" width="600" />
 
