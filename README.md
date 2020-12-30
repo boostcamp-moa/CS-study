@@ -67,7 +67,7 @@
     2. 조인(Join)
     3. SQL Injection
     4. SQL vs NoSQL
-    5. 이상(Anomaly)
+    5. 이상(Anomaly) - 1/1까지 윤현우가 채우겠습니다. 늦어서 죄송합니다!
     6. 인덱스(Index)
     7. 트랜잭션(Transaction)
     8. 트랜잭션 격리 수준
@@ -77,7 +77,7 @@
     1. 브라우저 동작 방법
     2. 쿠키 & 세션
     4. 브라우저 크리티컬 렌더링 패스
-    4. Http Status Code
+    4. Http Status Code - 1/1까지 윤현우가 채우겠습니다. 늦어서 죄송합니다!
     5. REST API
     6. Web Server와 WAS
     7. OAuth
