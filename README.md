@@ -67,7 +67,7 @@
     2. 조인(Join)
     3. SQL Injection
     4. SQL vs NoSQL
-    5. 이상(Anomaly) - 1/1까지 윤현우가 채우겠습니다. 늦어서 죄송합니다!
+    5. 정규화
     6. 인덱스(Index)
     7. 트랜잭션(Transaction)
     8. 트랜잭션 격리 수준
@@ -83,10 +83,8 @@
     7. OAuth
     8. JWT (JSON Web Token)
     9. 인증방식
-    10. 로깅 레벨 (Logging Level)
-    11. UI UX
-    12. CSR & SSR
-    13. DNS
+    10. CSR & SSR
+    11. DNS
 
 ---
 
