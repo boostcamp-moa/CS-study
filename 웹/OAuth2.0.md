@@ -93,7 +93,7 @@ ex)
 
 - authorization_code와의 차이점이라면 code 아닌 token을 반환한다는 것이다. 사용자가 로그인 및 권한 위임에 동의하면 redirect_uri에 token 파라미터를 통해 access_token을 바로 내려준다. 
 따라서 Access token이 외부에 노출되기 때문에 주의해야 한다.
-ex) {Redirect_URL}?token={ACCESS_TOKEN}
+ex) {Redirect_URL}#token={ACCESS_TOKEN}
 
 - 유효한 클라이언트인지 확인할 방법은 Redirect URL 뿐이다. 절대 사외부에 노출되지 않아야 할 client_secret은 등록 및 인증 과정에서 쓰이지 않는다.
 
