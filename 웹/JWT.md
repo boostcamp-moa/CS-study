@@ -183,7 +183,9 @@ HMACSHA256(
 *레퍼런스*
 
 1. [JWT 공식 홈페이지 - 설명](https://jwt.io/introduction)
+
 2. [RFC7519 - JSON Web Token (JWT)](https://tools.ietf.org/html/rfc7519)
+
 3. [RFC7518 - JSON Web Algorithms](https://tools.ietf.org/html/rfc7518)
 
 4. [veloport 블로그, "[JWT] JSON Web Token 소개 및 구조"](https://velopert.com/2389)
@@ -191,3 +193,5 @@ HMACSHA256(
 5. [JSON Web Token (JWT) Signing Algorithms Overview](https://auth0.com/blog/json-web-token-signing-algorithms-overview/#Common-JWT-Signing-Algorithms)
 
 6. [TOAST 블로그, "JWT를 소개합니다."](https://meetup.toast.com/posts/239)
+
+7. [JWT (JSON Web Token) 이해와 활용](http://www.opennaru.com/opennaru-blog/jwt-json-web-token/)
