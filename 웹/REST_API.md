@@ -59,7 +59,7 @@ REST 아키텍처 제약 조건을 만족하는 API를 의미한다.
 - resource에는 동사보다는 명사를 사용해야하며 소문자를 사용해야한다.
     -  /user/delete/1 (X)
     -  /FOOD/DELETE/1 (X)
-- 옳바른 HTTP Method을 사용해야한다.
+- 올바른 HTTP Method을 사용해야한다.
     - [GET] /user/fetch/1 (X)
     - [FETCH] /food/1 (O)
 - _보다는 -을 사용한다.
